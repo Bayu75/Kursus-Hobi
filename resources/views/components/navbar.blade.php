@@ -33,7 +33,7 @@
                             <p class="text-sm font-semibold text-text-primary dark:text-white">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-text-secondary dark:text-gray-400">{{ Auth::user()->email }}</p>
                         </div>
-                        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-text-secondary transition-colors hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-dark-bg">
+                        <a href="{{ Auth::user()->role_id === 1 ? route('admin.dashboard') : route('dashboard') }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-text-secondary transition-colors hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-dark-bg">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                             Dashboard
                         </a>
