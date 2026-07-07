@@ -18,7 +18,9 @@ class AdminVerificationTest extends TestCase
     use RefreshDatabase;
 
     private User $admin;
+
     private User $peserta;
+
     private Enrollment $enrollment;
 
     protected function setUp(): void

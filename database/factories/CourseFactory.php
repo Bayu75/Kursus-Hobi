@@ -13,7 +13,7 @@ class CourseFactory extends Factory
 
         return [
             'title' => $title,
-            'slug' => Str::slug($title) . '-' . Str::random(5),
+            'slug' => Str::slug($title).'-'.Str::random(5),
             'description' => fake()->paragraph(),
             'type' => fake()->randomElement(['online', 'offline']),
             'price' => fake()->numberBetween(50000, 500000),

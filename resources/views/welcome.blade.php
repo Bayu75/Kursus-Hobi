@@ -53,7 +53,13 @@
     {{-- Statistics Section (#tentang) --}}
     <section id="tentang" class="py-24 lg:py-28 bg-surface dark:bg-dark-bg">
         <div class="mx-auto max-w-[1600px] px-6 lg:px-8">
-            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold tracking-tight text-text-primary dark:text-white lg:text-5xl">Tentang Kami</h2>
+                <p class="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-text-secondary dark:text-gray-400">
+                    Platform kursus hobi terpercaya dengan ribuan pilihan belajar dari mentor profesional. Kembangkan bakat dan minat Anda bersama komunitas pembelajar aktif di seluruh Indonesia.
+                </p>
+            </div>
+            <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="group rounded-2xl bg-gradient-to-br from-primary to-primary-dark p-10 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
                     <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">

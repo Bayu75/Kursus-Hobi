@@ -15,6 +15,7 @@ class ReviewFlowTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Enrollment $completedEnrollment;
 
     protected function setUp(): void

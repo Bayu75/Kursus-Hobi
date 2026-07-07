@@ -30,6 +30,7 @@
 | — | **Responsiveness polish** (hamburger menu, overflow-x-auto) | ✅ |
 | — | **Feature Tests** (22 tests covering all core flows) | ✅ |
 
+
 ## Key Additions (final sprint)
 
 - Thumbnail images on course cards (fallback placeholder)
