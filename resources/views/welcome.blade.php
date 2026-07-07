@@ -107,7 +107,7 @@
     </section>
 
     {{-- Popular Courses Section --}}
-    <section class="py-24 lg:py-28 bg-surface-alt dark:bg-dark-surface">
+    <section id="kursus" class="py-24 lg:py-28 bg-surface-alt dark:bg-dark-surface">
         <div class="mx-auto max-w-[1600px] px-6 lg:px-8">
             <div class="text-center">
                 <h2 class="text-4xl font-bold tracking-tight text-text-primary dark:text-white lg:text-5xl">Kursus Populer</h2>

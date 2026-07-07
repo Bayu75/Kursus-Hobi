@@ -7,7 +7,7 @@
 
         <div class="hidden items-center gap-10 md:flex">
             <a href="/" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Beranda</a>
-            <a href="{{ route('courses.index') }}" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
+            <a href="#kursus" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
             <a href="#tentang" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Tentang</a>
         </div>
 
@@ -68,7 +68,7 @@
     <div id="mobile-menu" class="hidden border-t border-border bg-white px-6 pb-6 pt-4 shadow-lg dark:border-gray-700 dark:bg-dark-bg md:hidden lg:px-8">
         <div class="flex flex-col gap-4">
             <a href="/" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Beranda</a>
-            <a href="{{ route('courses.index') }}" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
+            <a href="#kursus" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
             <a href="#tentang" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Tentang</a>
             <hr class="border-border dark:border-gray-700">
             @auth
