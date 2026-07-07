@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="mb-1 block text-sm font-medium text-text-primary dark:text-gray-200">Thumbnail</label>
+                    <label class="mb-1 block text-sm font-medium text-text-primary dark:text-gray-200">Gambar Cover</label>
                     <input type="file" name="thumbnail" accept="image/jpeg,image/png,image/webp"
                         class="w-full text-sm text-text-secondary file:mr-4 file:rounded-full file:border-0 file:bg-gradient-to-b file:from-[#2B7FFF] file:to-[#0065FF] file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:opacity-90">
                     @error('thumbnail') <p class="mt-1 text-sm text-danger">{{ $message }}</p> @enderror

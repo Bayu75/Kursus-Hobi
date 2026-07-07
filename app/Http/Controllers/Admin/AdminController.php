@@ -4,32 +4,49 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RejectPaymentRequest;
+use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    public function index()
-    {
-        $stats = [
-            'total_users' => User::count(),
-            'total_courses' => Course::count(),
-            'pending_payments' => Enrollment::where('status', 'pending')->count(),
-        ];
+            public function index()
+        {
+            $stats = [
+                'total_users' => User::count(),
+                'total_courses' => Course::count(),
+                'pending_payments' => Enrollment::where('status', 'pending')->count(),
+            ];
 
-        $pendingEnrollments = Enrollment::with(['user', 'course', 'payment'])
-            ->where('status', 'pending')
-            ->latest()
-            ->get();
+            $pendingEnrollments = Enrollment::with(['user', 'course', 'payment'])
+                ->where('status', 'pending')
+                ->latest()
+                ->get();
 
-        $activeEnrollments = Enrollment::with(['user', 'course'])
-            ->where('status', 'active')
-            ->latest()
-            ->get();
+            $activeEnrollments = Enrollment::with(['user', 'course'])
+                ->where('status', 'active')
+                ->latest()
+                ->get();
 
-        return view('admin.dashboard', compact('stats', 'pendingEnrollments', 'activeEnrollments'));
-    }
+            // TAMBAHKAN INI
+            $completedEnrollments = Enrollment::with([
+                    'user',
+                    'course',
+                    'certificate'
+                ])
+                ->where('status', 'completed')
+                ->latest()
+                ->get();
+
+            return view('admin.dashboard', compact(
+                'stats',
+                'pendingEnrollments',
+                'activeEnrollments',
+                'completedEnrollments'
+            ));
+        }
 
     public function verify(Enrollment $enrollment)
     {
@@ -67,15 +84,26 @@ class AdminController extends Controller
             ->with('success', 'Pembayaran ditolak.');
     }
 
-    public function complete(Enrollment $enrollment)
+        public function complete(Enrollment $enrollment)
     {
         if ($enrollment->status !== 'active') {
             return back()->with('error', 'Hanya enrollment aktif yang bisa ditandai selesai.');
         }
 
-        $enrollment->update(['status' => 'completed']);
+        $enrollment->update([
+            'status' => 'completed',
+        ]);
+
+        Certificate::firstOrCreate(
+            [
+                'enrollment_id' => $enrollment->id,
+            ],
+            [
+                'certificate_number' => 'CERT-' . date('Y') . '-' . strtoupper(Str::random(8)),
+            ]
+        );
 
         return redirect()->route('admin.dashboard')
-            ->with('success', 'Peserta telah ditandai lulus.');
+            ->with('success', 'Peserta telah ditandai lulus dan sertifikat berhasil dibuat.');
     }
 }

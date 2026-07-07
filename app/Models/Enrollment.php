@@ -27,4 +27,9 @@ class Enrollment extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    public function certificate(): HasOne
+    {
+        return $this->hasOne(Certificate::class);
+    }
 }

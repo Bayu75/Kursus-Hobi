@@ -10,7 +10,7 @@
         </div>
 
         {{-- Stats Cards --}}
-        <div class="mb-8 grid gap-6 md:grid-cols-3">
+       <div class="mb-8 grid gap-6 md:grid-cols-4">
             <a href="{{ route('dashboard', ['tab' => 'active']) }}" class="rounded-2xl border border-border bg-surface-alt p-6 shadow-sm transition-colors hover:border-primary-start/30 dark:border-gray-700 dark:bg-dark-surface">
                 <p class="text-sm text-text-secondary dark:text-gray-400">Kursus Aktif</p>
                 <p class="text-3xl font-bold text-text-primary dark:text-white">{{ $stats['active'] }}</p>
@@ -23,11 +23,16 @@
                 <p class="text-sm text-text-secondary dark:text-gray-400">Selesai</p>
                 <p class="text-3xl font-bold text-success">{{ $stats['completed'] }}</p>
             </a>
+            <a href="{{ route('dashboard', ['tab' => 'rejected']) }}"
+                class="rounded-2xl border border-border bg-surface-alt p-6 shadow-sm transition-colors hover:border-danger/30 dark:border-gray-700 dark:bg-dark-surface">
+                <p class="text-sm text-text-secondary dark:text-gray-400">Ditolak</p>
+                <p class="text-3xl font-bold text-danger">{{ $stats['rejected'] }}</p>
+            </a>
         </div>
 
         {{-- Tabs --}}
         <div class="mb-6 flex border-b border-border dark:border-gray-700">
-            @php $tabs = ['active' => 'Kursus Aktif', 'pending' => 'Menunggu Verifikasi', 'completed' => 'Riwayat']; @endphp
+            @php $tabs = ['active' => 'Kursus Aktif', 'pending' => 'Menunggu Verifikasi', 'completed' => 'Riwayat', 'rejected' => 'Ditolak',]; @endphp
             @foreach ($tabs as $key => $label)
                 <a href="{{ route('dashboard', ['tab' => $key]) }}"
                     class="border-b-2 px-6 py-3 text-sm font-medium transition-colors
@@ -51,6 +56,24 @@
                             <div class="flex-1">
                                 <h3 class="font-semibold text-text-primary dark:text-white">{{ $enrollment->course->title }}</h3>
                                 <p class="text-sm text-text-secondary dark:text-gray-400">{{ $enrollment->course->instructor->name }}</p>
+                                @if ($enrollment->status === 'rejected' && $enrollment->payment)
+                        <div class="mt-3 rounded-xl border border-red-200 bg-red-50 p-3">
+                            <p class="text-sm font-semibold text-red-700">
+                                Pembayaran Ditolak
+                            </p>
+
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ $enrollment->payment->rejected_reason }}
+                            </p>
+                            <p class="mt-2 text-xs text-text-secondary dark:text-gray-400">
+                                Silakan perbaiki sesuai alasan di atas, kemudian ajukan kembali pembayaran Anda.
+                            </p>
+                            <a href="{{ route('payments.create', $enrollment) }}"
+                                class="mt-2 inline-block text-sm font-medium text-primary-start hover:underline">
+                                Upload Bukti Transfer Ulang
+                            </a>
+                        </div>
+                    @endif
                             </div>
                             <div class="text-right">
                                 <span class="inline-block rounded-full px-3 py-1 text-xs font-medium
@@ -78,6 +101,13 @@
                                             data-course-title="{{ $enrollment->course->title }}">
                                             Beri Ulasan
                                         </button>
+                                        @if ($enrollment->status == 'completed' && $enrollment->certificate)
+
+                                        <a href="{{ route('certificates.show', $enrollment->certificate) }}"
+                                        class="mt-3 inline-flex rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-5 py-2 text-white">
+                                            Download Sertifikat
+                                        </a>
+                                        @endif
                                     @else
                                         <span class="mt-2 block text-xs text-text-muted dark:text-gray-500">Sudah diulas</span>
                                     @endif

@@ -16,28 +16,44 @@ class PaymentController extends Controller
         return view('payments.create', compact('enrollment'));
     }
 
-    public function store(PaymentRequest $request, Enrollment $enrollment)
+        public function store(PaymentRequest $request, Enrollment $enrollment)
     {
         if ($enrollment->user_id !== auth()->id()) {
             abort(403);
-        }
-
-        if ($enrollment->payment) {
-            return redirect()->route('dashboard')
-                ->with('info', 'Bukti pembayaran sudah diunggah sebelumnya.');
         }
 
         $validated = $request->validated();
 
         $path = $request->file('proof_file')->store('payments', 'public');
 
-        $enrollment->payment()->create([
-            'transfer_bank_name' => $validated['transfer_bank_name'],
-            'account_holder_name' => $validated['account_holder_name'],
-            'proof_file_path' => $path,
+        if ($enrollment->payment) {
+
+            // Update pembayaran lama
+            $enrollment->payment->update([
+                'transfer_bank_name' => $validated['transfer_bank_name'],
+                'account_holder_name' => $validated['account_holder_name'],
+                'proof_file_path' => $path,
+                'verified_at' => null,
+                'rejected_reason' => null,
+            ]);
+
+        } else {
+
+            // Pembayaran pertama
+            $enrollment->payment()->create([
+                'transfer_bank_name' => $validated['transfer_bank_name'],
+                'account_holder_name' => $validated['account_holder_name'],
+                'proof_file_path' => $path,
+            ]);
+
+        }
+
+        // Kembalikan status menjadi pending
+        $enrollment->update([
+            'status' => 'pending',
         ]);
 
         return redirect()->route('dashboard')
-            ->with('success', 'Bukti pembayaran berhasil diunggah. Menunggu verifikasi admin.');
+            ->with('success', 'Pembayaran berhasil diajukan kembali dan menunggu verifikasi admin.');
     }
 }

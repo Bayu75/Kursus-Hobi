@@ -14,6 +14,7 @@ use App\Http\Controllers\LearningController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CertificateController;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Enrollment;
@@ -65,6 +66,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reviews/{enrollment}', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/reviews/{enrollment}', [ReviewController::class, 'store'])->name('reviews.store');
+
+    Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])
+    ->name('certificates.show');
+
+    Route::get('/certificates/{certificate}/download', [CertificateController::class, 'download']
+    )->name('certificates.download');
+    
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {

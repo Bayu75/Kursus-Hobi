@@ -38,9 +38,7 @@
                                     <td class="px-5 py-4 font-medium text-text-primary dark:text-white">{{ $course->title }}</td>
                                     <td class="px-5 py-4 text-text-secondary dark:text-gray-400">{{ $course->category->name }}</td>
                                     <td class="px-5 py-4 text-text-secondary dark:text-gray-400">{{ $course->instructor->name }}</td>
-                                    <td class="px-5 py-4">
-                                        <span class="rounded-full bg-tertiary/10 px-3 py-1 text-xs font-medium text-tertiary">{{ $course->type }}</span>
-                                    </td>
+                                    {{ $course->type }}
                                     <td class="px-5 py-4 text-text-secondary dark:text-gray-400">Rp {{ number_format($course->price, 0, ',', '.') }}</td>
                                     <td class="px-5 py-4">
                                         <a href="{{ route('admin.courses.edit', $course) }}" class="text-sm font-medium text-primary-start hover:underline">Edit</a>
