@@ -18,12 +18,6 @@
             <div class="flex-1">
                 <div class="mb-8 flex items-center justify-between">
                     <h1 class="text-3xl font-bold text-text-primary dark:text-white">Admin Dashboard</h1>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="rounded-full border border-border px-6 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-dark-surface">
-                            Logout
-                        </button>
-                    </form>
                 </div>
 
                 {{-- Stats --}}

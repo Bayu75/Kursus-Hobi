@@ -5,7 +5,7 @@
 @section('content')
 <div class="min-h-screen">
     {{-- Hero Section --}}
-    <section class="relative flex min-h-[650px] items-center justify-center overflow-hidden pt-20 lg:min-h-[750px]">
+    <section id="beranda" class="relative flex min-h-[650px] items-center justify-center overflow-hidden pt-20 lg:min-h-[750px]">
         <div class="pointer-events-none absolute inset-0" aria-hidden="true">
             <div class="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-3xl"></div>
             <div class="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-purple-400/20 to-blue-400/20 blur-3xl"></div>
@@ -53,7 +53,13 @@
     {{-- Statistics Section (#tentang) --}}
     <section id="tentang" class="py-24 lg:py-28 bg-surface dark:bg-dark-bg">
         <div class="mx-auto max-w-[1600px] px-6 lg:px-8">
-            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold tracking-tight text-text-primary dark:text-white lg:text-5xl">Tentang Kami</h2>
+                <p class="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-text-secondary dark:text-gray-400">
+                    Platform kursus hobi terpercaya dengan ribuan pilihan belajar dari mentor profesional. Kembangkan bakat dan minat Anda bersama komunitas pembelajar aktif di seluruh Indonesia.
+                </p>
+            </div>
+            <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="group rounded-2xl bg-gradient-to-br from-primary to-primary-dark p-10 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
                     <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
@@ -101,7 +107,7 @@
     </section>
 
     {{-- Popular Courses Section --}}
-    <section class="py-24 lg:py-28 bg-surface-alt dark:bg-dark-surface">
+    <section id="kursus" class="py-24 lg:py-28 bg-surface-alt dark:bg-dark-surface">
         <div class="mx-auto max-w-[1600px] px-6 lg:px-8">
             <div class="text-center">
                 <h2 class="text-4xl font-bold tracking-tight text-text-primary dark:text-white lg:text-5xl">Kursus Populer</h2>
@@ -228,12 +234,12 @@
     {{-- Footer --}}
     <footer class="border-t border-border bg-surface-alt dark:border-gray-700 dark:bg-dark-surface">
         <div class="mx-auto max-w-[1600px] px-6 py-20 lg:px-8">
-            <div class="grid gap-16 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-16 sm:grid-cols-2 lg:grid-cols-[2fr_2.5fr_1.5fr_1.5fr]">
                 {{-- Column 1: Logo & Description --}}
                 <div>
                     <a href="/" class="flex items-center gap-2.5">
-                        <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-9 w-auto dark:brightness-0 dark:invert">
-                        <span class="text-xl font-bold text-text-primary dark:text-white">Kursus Hobi</span>
+                        <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-9 w-auto dark:brightness-125">
+                        <span class="text-xl font-bold text-primary-start dark:text-primary-light">Kursus Hobi</span>
                     </a>
                     <p class="mt-4 text-base leading-relaxed text-text-secondary dark:text-gray-400">
                         Platform edukasi hobi terpercaya yang menghubungkan Anda dengan instruktur profesional untuk mengembangkan bakat dan kreativitas.
@@ -254,22 +260,18 @@
                 {{-- Column 2: Categories --}}
                 <div>
                     <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Kategori</h4>
-                    <ul class="mt-6 space-y-3">
+                    <div class="mt-6 grid grid-cols-3 gap-x-2 gap-y-3">
                         @foreach ($categories->take(6) as $category)
-                            <li>
-                                <a href="{{ route('courses.index', ['category_id' => $category->id]) }}"
-                                    class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">
-                                    {{ $category->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                        <li>
-                            <a href="{{ route('courses.index') }}"
-                                class="text-sm font-medium text-primary transition-colors hover:text-primary-dark dark:text-primary dark:hover:text-primary-light">
-                                Lihat Semua
+                            <a href="{{ route('courses.index', ['category_id' => $category->id]) }}"
+                                class="whitespace-nowrap text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">
+                                {{ $category->name }}
                             </a>
-                        </li>
-                    </ul>
+                        @endforeach
+                        <a href="{{ route('courses.index') }}"
+                            class="col-span-3 text-sm font-medium text-primary transition-colors hover:text-primary-dark dark:text-primary dark:hover:text-primary-light">
+                            Lihat Semua
+                        </a>
+                    </div>
                 </div>
 
                 {{-- Column 3: About --}}
@@ -277,18 +279,13 @@
                     <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Tentang</h4>
                     <ul class="mt-6 space-y-3">
                         <li><a href="#tentang" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Tentang Kami</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Blog</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Karir</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Mitra Instruktur</a></li>
                     </ul>
                 </div>
 
-                {{-- Column 4: Help --}}
+                {{-- Column 4: Contact --}}
                 <div>
-                    <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Bantuan</h4>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Kontak</h4>
                     <ul class="mt-6 space-y-3">
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">FAQ</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Pusat Bantuan</a></li>
                         <li><a href="mailto:hello@kursushobi.com" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">hello@kursushobi.com</a></li>
                         <li><a href="tel:+62221234567" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">(022) 123-4567</a></li>
                     </ul>
@@ -303,4 +300,46 @@
         </div>
     </footer>
 </div>
+
+@push('scripts')
+<script>
+(function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="/#"], nav a[href="/"]');
+
+    const updateActiveLink = () => {
+        let currentId = 'beranda';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 200) {
+                currentId = section.id;
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('text-primary', 'dark:text-primary-light');
+            link.classList.add('text-text-secondary', 'dark:text-gray-300');
+
+            const href = link.getAttribute('href');
+            const targetId = href === '/' ? 'beranda' : href.replace('/#', '');
+            if (targetId === currentId) {
+                link.classList.remove('text-text-secondary', 'dark:text-gray-300');
+                link.classList.add('text-primary', 'dark:text-primary-light');
+            }
+        });
+    };
+
+    updateActiveLink();
+
+    sections.forEach(section => {
+        const observer = new IntersectionObserver(() => {
+            updateActiveLink();
+        }, { threshold: 0.2 });
+        observer.observe(section);
+    });
+
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+})();
+</script>
+@endpush
 @endsection

@@ -1,14 +1,14 @@
 <nav class="fixed top-0 left-0 right-0 z-50 h-20 border-b border-border/50 bg-white/80 backdrop-blur-xl transition-all duration-300 dark:border-gray-700/50 dark:bg-dark-bg/80">
     <div class="mx-auto flex h-full max-w-[1600px] items-center justify-between px-6 lg:px-8">
         <a href="/" class="flex items-center gap-2.5">
-            <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-10 w-auto dark:brightness-0 dark:invert">
-            <span class="text-2xl font-bold text-text-primary dark:text-white">Kursus Hobi</span>
+            <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-10 w-auto dark:brightness-125">
+            <span class="text-2xl font-bold text-primary-start dark:text-primary-light">Kursus Hobi</span>
         </a>
 
         <div class="hidden items-center gap-10 md:flex">
             <a href="/" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Beranda</a>
-            <a href="{{ route('courses.index') }}" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
-            <a href="#tentang" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Tentang</a>
+            <a href="/#kursus" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
+            <a href="/#tentang" class="text-lg font-semibold text-text-secondary transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-white">Tentang</a>
         </div>
 
         <div class="flex items-center gap-4 md:gap-6">
@@ -68,8 +68,8 @@
     <div id="mobile-menu" class="hidden border-t border-border bg-white px-6 pb-6 pt-4 shadow-lg dark:border-gray-700 dark:bg-dark-bg md:hidden lg:px-8">
         <div class="flex flex-col gap-4">
             <a href="/" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Beranda</a>
-            <a href="{{ route('courses.index') }}" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
-            <a href="#tentang" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Tentang</a>
+            <a href="/#kursus" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Kursus</a>
+            <a href="/#tentang" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Tentang</a>
             <hr class="border-border dark:border-gray-700">
             @auth
                 <a href="{{ route('dashboard') }}" class="text-lg font-medium text-text-secondary hover:text-primary dark:text-gray-300 dark:hover:text-white">Dashboard</a>

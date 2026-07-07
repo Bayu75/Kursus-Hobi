@@ -16,6 +16,7 @@ class EnrollmentFlowTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Course $course;
 
     protected function setUp(): void
