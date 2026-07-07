@@ -135,21 +135,69 @@
                         @endif
                     </ul>
 
+                    @php
+                        $registrationClosed = false;
+                        $registrationMessage = '';
+
+                        if ($course->type === 'offline' && $course->schedules->isNotEmpty()) {
+
+                            $firstSchedule = $course->schedules
+                                ->sortBy(fn($schedule) => $schedule->date . ' ' . $schedule->start_time)
+                                ->first();
+
+                            $approvedParticipants = $course->enrollments
+                                ->whereIn('status', ['active', 'completed'])
+                                ->count();
+
+                            $startTime = \Carbon\Carbon::parse(
+                                $firstSchedule->date . ' ' . $firstSchedule->start_time
+                            );
+
+                            if (now()->greaterThanOrEqualTo($startTime)) {
+                                $registrationClosed = true;
+                                $registrationMessage = 'Pendaftaran Ditutup';
+                            } elseif ($approvedParticipants >= $firstSchedule->quota) {
+                                $registrationClosed = true;
+                                $registrationMessage = 'Kuota Penuh';
+                            }
+                        }
+                    @endphp
+
                     @auth
-                        @if (Auth::user()->role_id != 1)
-                        <form method="POST" action="{{ route('enrollments.store', $course) }}">
-                            @csrf
-                            <button type="submit"
-                                class="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-6 py-3 text-sm font-medium text-white transition-all duration-150 hover:opacity-90">
-                                Daftar Sekarang
-                            </button>
-                        </form>
+
+                        @if(Auth::user()->role_id != 1)
+
+                            @if($registrationClosed)
+
+                                <button
+                                    disabled
+                                    class="mt-6 flex w-full cursor-not-allowed items-center justify-center rounded-full bg-gray-300 px-6 py-3 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+                                    {{ $registrationMessage }}
+                                </button>
+
+                            @else
+
+                                <form method="POST" action="{{ route('enrollments.store', $course) }}">
+                                    @csrf
+
+                                    <button
+                                        type="submit"
+                                        class="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-6 py-3 text-sm font-medium text-white hover:opacity-90">
+                                        Daftar Sekarang
+                                    </button>
+                                </form>
+
+                            @endif
+
                         @endif
+
                     @else
+
                         <a href="{{ route('login') }}"
-                            class="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-6 py-3 text-sm font-medium text-white transition-all duration-150 hover:opacity-90">
+                            class="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-6 py-3 text-sm font-medium text-white">
                             Masuk untuk Mendaftar
                         </a>
+
                     @endauth
                 </div>
             </aside>
