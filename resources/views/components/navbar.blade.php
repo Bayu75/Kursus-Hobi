@@ -2,7 +2,7 @@
     <div class="mx-auto flex h-full max-w-[1600px] items-center justify-between px-6 lg:px-8">
         <a href="/" class="flex items-center gap-2.5">
             <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-10 w-auto dark:brightness-0 dark:invert">
-            <span class="text-2xl font-bold text-text-primary dark:text-white">Kursus Hobi</span>
+            <span class="text-2xl font-bold text-primary-start dark:text-primary-light">Kursus Hobi</span>
         </a>
 
         <div class="hidden items-center gap-10 md:flex">

@@ -239,7 +239,7 @@
                 <div>
                     <a href="/" class="flex items-center gap-2.5">
                         <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-9 w-auto dark:brightness-0 dark:invert">
-                        <span class="text-xl font-bold text-text-primary dark:text-white">Kursus Hobi</span>
+                        <span class="text-xl font-bold text-primary-start dark:text-primary-light">Kursus Hobi</span>
                     </a>
                     <p class="mt-4 text-base leading-relaxed text-text-secondary dark:text-gray-400">
                         Platform edukasi hobi terpercaya yang menghubungkan Anda dengan instruktur profesional untuk mengembangkan bakat dan kreativitas.
