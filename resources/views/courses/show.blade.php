@@ -136,6 +136,7 @@
                     </ul>
 
                     @auth
+                        @if (Auth::user()->role_id != 1)
                         <form method="POST" action="{{ route('enrollments.store', $course) }}">
                             @csrf
                             <button type="submit"
@@ -143,6 +144,7 @@
                                 Daftar Sekarang
                             </button>
                         </form>
+                        @endif
                     @else
                         <a href="{{ route('login') }}"
                             class="mt-6 flex w-full items-center justify-center rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-6 py-3 text-sm font-medium text-white transition-all duration-150 hover:opacity-90">

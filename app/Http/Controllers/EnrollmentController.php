@@ -15,6 +15,10 @@ class EnrollmentController extends Controller
     {
         $exists = $course->enrollments()->where('user_id', auth()->id())->exists();
 
+        if (auth()->user()->role_id === 1) {
+            abort(403, 'Administrator tidak dapat mendaftar kursus.');
+        }
+        
         if ($exists) {
             return redirect()->route('courses.show', $course->slug)
                 ->with('error', 'Anda sudah terdaftar di kursus ini.');
