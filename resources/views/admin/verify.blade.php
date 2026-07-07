@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <p class="mb-2 text-sm font-medium text-text-primary dark:text-white">Bukti Transfer</p>
+                    <p class="mb-2 text-sm font-medium text-text-primary dark:text-white">Bukti Transfer</p>                    
                     <img src="{{ asset('storage/' . $enrollment->payment->proof_file_path) }}"
                         class="max-h-96 w-full rounded-xl border border-border object-contain dark:border-gray-700"
                         alt="Bukti Transfer">
