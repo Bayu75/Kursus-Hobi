@@ -234,7 +234,7 @@
     {{-- Footer --}}
     <footer class="border-t border-border bg-surface-alt dark:border-gray-700 dark:bg-dark-surface">
         <div class="mx-auto max-w-[1600px] px-6 py-20 lg:px-8">
-            <div class="grid gap-16 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-16 sm:grid-cols-2 lg:grid-cols-[2fr_2.5fr_1.5fr_1.5fr]">
                 {{-- Column 1: Logo & Description --}}
                 <div>
                     <a href="/" class="flex items-center gap-2.5">
@@ -260,22 +260,18 @@
                 {{-- Column 2: Categories --}}
                 <div>
                     <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Kategori</h4>
-                    <ul class="mt-6 space-y-3">
+                    <div class="mt-6 grid grid-cols-3 gap-x-2 gap-y-3">
                         @foreach ($categories->take(6) as $category)
-                            <li>
-                                <a href="{{ route('courses.index', ['category_id' => $category->id]) }}"
-                                    class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">
-                                    {{ $category->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                        <li>
-                            <a href="{{ route('courses.index') }}"
-                                class="text-sm font-medium text-primary transition-colors hover:text-primary-dark dark:text-primary dark:hover:text-primary-light">
-                                Lihat Semua
+                            <a href="{{ route('courses.index', ['category_id' => $category->id]) }}"
+                                class="whitespace-nowrap text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">
+                                {{ $category->name }}
                             </a>
-                        </li>
-                    </ul>
+                        @endforeach
+                        <a href="{{ route('courses.index') }}"
+                            class="col-span-3 text-sm font-medium text-primary transition-colors hover:text-primary-dark dark:text-primary dark:hover:text-primary-light">
+                            Lihat Semua
+                        </a>
+                    </div>
                 </div>
 
                 {{-- Column 3: About --}}
@@ -283,18 +279,13 @@
                     <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Tentang</h4>
                     <ul class="mt-6 space-y-3">
                         <li><a href="#tentang" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Tentang Kami</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Blog</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Karir</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Mitra Instruktur</a></li>
                     </ul>
                 </div>
 
-                {{-- Column 4: Help --}}
+                {{-- Column 4: Contact --}}
                 <div>
-                    <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Bantuan</h4>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-text-primary dark:text-white">Kontak</h4>
                     <ul class="mt-6 space-y-3">
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">FAQ</a></li>
-                        <li><a href="#" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">Pusat Bantuan</a></li>
                         <li><a href="mailto:hello@kursushobi.com" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">hello@kursushobi.com</a></li>
                         <li><a href="tel:+62221234567" class="text-sm text-text-secondary transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-primary">(022) 123-4567</a></li>
                     </ul>
