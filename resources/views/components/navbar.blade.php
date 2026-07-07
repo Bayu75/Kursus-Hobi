@@ -1,7 +1,7 @@
 <nav class="fixed top-0 left-0 right-0 z-50 h-20 border-b border-border/50 bg-white/80 backdrop-blur-xl transition-all duration-300 dark:border-gray-700/50 dark:bg-dark-bg/80">
     <div class="mx-auto flex h-full max-w-[1600px] items-center justify-between px-6 lg:px-8">
         <a href="/" class="flex items-center gap-2.5">
-            <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-10 w-auto dark:brightness-0 dark:invert">
+            <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-10 w-auto dark:brightness-125">
             <span class="text-2xl font-bold text-primary-start dark:text-primary-light">Kursus Hobi</span>
         </a>
 

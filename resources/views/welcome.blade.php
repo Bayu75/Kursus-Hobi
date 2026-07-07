@@ -238,7 +238,7 @@
                 {{-- Column 1: Logo & Description --}}
                 <div>
                     <a href="/" class="flex items-center gap-2.5">
-                        <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-9 w-auto dark:brightness-0 dark:invert">
+                        <img src="{{ asset('images/logo-kursus-hobi.svg') }}" alt="Kursus Hobi" class="h-9 w-auto dark:brightness-125">
                         <span class="text-xl font-bold text-primary-start dark:text-primary-light">Kursus Hobi</span>
                     </a>
                     <p class="mt-4 text-base leading-relaxed text-text-secondary dark:text-gray-400">
