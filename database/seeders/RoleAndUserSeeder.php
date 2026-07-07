@@ -20,7 +20,7 @@ class RoleAndUserSeeder extends Seeder
 
         User::create([
             'name' => 'Peserta Demo',
-            'email' => '    ',
+            'email' => 'peserta@kursushobi.com',
             'phone' => '081234567891',
             'password' => Hash::make('peserta123'),
             'role_id' => 2,
