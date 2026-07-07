@@ -5,7 +5,7 @@
 @section('content')
 <div class="min-h-screen">
     {{-- Hero Section --}}
-    <section class="relative flex min-h-[650px] items-center justify-center overflow-hidden pt-20 lg:min-h-[750px]">
+    <section id="beranda" class="relative flex min-h-[650px] items-center justify-center overflow-hidden pt-20 lg:min-h-[750px]">
         <div class="pointer-events-none absolute inset-0" aria-hidden="true">
             <div class="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-3xl"></div>
             <div class="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-purple-400/20 to-blue-400/20 blur-3xl"></div>
@@ -300,4 +300,46 @@
         </div>
     </footer>
 </div>
+
+@push('scripts')
+<script>
+(function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="/#"], nav a[href="/"]');
+
+    const updateActiveLink = () => {
+        let currentId = 'beranda';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 200) {
+                currentId = section.id;
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('text-primary', 'dark:text-primary-light');
+            link.classList.add('text-text-secondary', 'dark:text-gray-300');
+
+            const href = link.getAttribute('href');
+            const targetId = href === '/' ? 'beranda' : href.replace('/#', '');
+            if (targetId === currentId) {
+                link.classList.remove('text-text-secondary', 'dark:text-gray-300');
+                link.classList.add('text-primary', 'dark:text-primary-light');
+            }
+        });
+    };
+
+    updateActiveLink();
+
+    sections.forEach(section => {
+        const observer = new IntersectionObserver(() => {
+            updateActiveLink();
+        }, { threshold: 0.2 });
+        observer.observe(section);
+    });
+
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+})();
+</script>
+@endpush
 @endsection
