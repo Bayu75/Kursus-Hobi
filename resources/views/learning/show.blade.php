@@ -4,16 +4,44 @@
 
 @section('content')
 <div class="fixed inset-0 top-20 flex flex-col bg-black lg:flex-row">
-    {{-- Video Player (70%) --}}
+        {{-- Materi Player --}}
     <div class="flex flex-1 items-center justify-center bg-black lg:w-7/10">
         <div class="w-full px-4 lg:px-8">
-            <video id="main-player" class="w-full rounded-xl shadow-2xl" controls autoplay>
-                <source id="video-source" src="{{ $course->materials->first() ? asset('storage/' . $course->materials->first()->file_path) : '' }}" type="video/mp4">
-                Browser tidak mendukung pemutar video.
-            </video>
-            <h2 id="video-title" class="mt-4 text-lg font-semibold text-white">
-                {{ $course->materials->first()->title ?? 'Belum ada materi' }}
+
+            @php
+                $firstMaterial = $course->materials->first();
+                $extension = $firstMaterial ? pathinfo($firstMaterial->file_path, PATHINFO_EXTENSION) : null;
+            @endphp
+
+            @if(strtolower($extension) === 'pdf')
+
+                <iframe
+                    id="pdf-player"
+                    src="{{ asset('storage/' . $firstMaterial->file_path) }}"
+                    class="h-[70vh] w-full rounded-xl bg-white">
+                </iframe>
+
+            @elseif(strtolower($extension) === 'mp4')
+
+                <video id="main-player" class="w-full rounded-xl shadow-2xl" controls autoplay>
+                    <source 
+                        src="{{ asset('storage/' . $firstMaterial->file_path) }}"
+                        type="video/mp4">
+                </video>
+
+            @else
+
+                <p class="text-white">
+                    Format materi belum didukung.
+                </p>
+
+            @endif
+
+
+            <h2 class="mt-4 text-lg font-semibold text-white">
+                {{ $firstMaterial->title ?? 'Belum ada materi' }}
             </h2>
+
         </div>
     </div>
 
@@ -52,40 +80,132 @@
 @push('scripts')
 <script>
     (function() {
-        const player = document.getElementById('main-player');
-        const videoSource = document.getElementById('video-source');
-        const videoTitle = document.getElementById('video-title');
-        const items = document.querySelectorAll('.playlist-item');
 
-        items.forEach(item => {
-            item.addEventListener('click', function() {
-                const src = this.dataset.src;
-                const title = this.dataset.title;
+    const items = document.querySelectorAll('.playlist-item');
+    const contentArea = document.querySelector('.lg\\:w-7\\/10 .w-full');
 
-                if (videoSource.src === src) return;
+    const title = document.querySelector('.lg\\:w-7\\/10 h2');
 
-                items.forEach(el => {
-                    el.classList.remove('bg-white/10');
-                    el.querySelector('span:first-child')?.classList.remove('bg-primary-start/20', 'text-primary-start');
-                    el.querySelector('span:first-child')?.classList.add('bg-white/10', 'text-gray-400');
-                    el.querySelector('p:first-of-type')?.classList.remove('text-white');
-                    el.querySelector('p:first-of-type')?.classList.add('text-white/80');
-                });
 
-                this.classList.add('bg-white/10');
-                const numSpan = this.querySelector('span:first-child');
-                numSpan?.classList.remove('bg-white/10', 'text-gray-400');
-                numSpan?.classList.add('bg-primary-start/20', 'text-primary-start');
-                this.querySelector('p:first-of-type')?.classList.remove('text-white/80');
-                this.querySelector('p:first-of-type')?.classList.add('text-white');
+    items.forEach(item => {
 
-                videoSource.src = src;
-                player.load();
-                player.play();
-                videoTitle.textContent = title;
+        item.addEventListener('click', function() {
+
+            const src = this.dataset.src;
+            const materialTitle = this.dataset.title;
+
+            const extension = src.split('.').pop().toLowerCase();
+
+
+            // Update active playlist
+            items.forEach(el => {
+                el.classList.remove('bg-white/10');
+
+                el.querySelector('span:first-child')
+                    ?.classList.remove(
+                        'bg-primary-start/20',
+                        'text-primary-start'
+                    );
+
+                el.querySelector('span:first-child')
+                    ?.classList.add(
+                        'bg-white/10',
+                        'text-gray-400'
+                    );
+
             });
+
+
+            this.classList.add('bg-white/10');
+
+            const number = this.querySelector('span:first-child');
+
+            number?.classList.remove(
+                'bg-white/10',
+                'text-gray-400'
+            );
+
+            number?.classList.add(
+                'bg-primary-start/20',
+                'text-primary-start'
+            );
+
+
+            // Ganti tampilan materi
+
+            let content = "";
+
+
+            if(extension === 'mp4') {
+
+                content = `
+                    <video 
+                        class="w-full rounded-xl shadow-2xl"
+                        controls
+                        autoplay>
+
+                        <source src="${src}" type="video/mp4">
+
+                    </video>
+                `;
+
+            } 
+            else if(extension === 'pdf') {
+
+
+                content = `
+                    <iframe
+                        src="${src}"
+                        class="h-[70vh] w-full rounded-xl bg-white">
+                    </iframe>
+                `;
+
+
+            }
+            else if(extension === 'doc' || extension === 'docx') {
+
+
+                content = `
+                    <div class="flex h-[70vh] flex-col items-center justify-center rounded-xl bg-white">
+
+                        <p class="mb-4 text-gray-700">
+                            Dokumen materi tersedia
+                        </p>
+
+                        <a href="${src}"
+                           target="_blank"
+                           class="rounded-full bg-blue-600 px-6 py-3 text-white">
+                            Buka Dokumen
+                        </a>
+
+                    </div>
+                `;
+
+            }
+            else {
+
+                content = `
+                    <p class="text-white">
+                        Format tidak didukung
+                    </p>
+                `;
+
+            }
+
+
+            contentArea.innerHTML = content + 
+            `
+                <h2 class="mt-4 text-lg font-semibold text-white">
+                    ${materialTitle}
+                </h2>
+            `;
+
+
         });
-    })();
+
+    });
+
+})();
 </script>
 @endpush
 @endsection

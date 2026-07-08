@@ -164,9 +164,16 @@
                             class="w-full rounded-xl border border-border bg-white px-3 py-2 text-sm outline-none focus:border-primary-start dark:border-gray-600 dark:bg-dark-bg dark:text-white">
                     </div>
                     <div class="mb-3">
-                        <label class="mb-1 block text-xs text-text-secondary dark:text-gray-400">File (video / PDF / dokumen)</label>
-                        <input type="file" name="file" required
-                            class="w-full text-sm text-text-secondary file:mr-4 file:rounded-full file:border-0 file:bg-gradient-to-b file:from-[#2B7FFF] file:to-[#0065FF] file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:opacity-90">
+                        <label class="mb-1 block text-xs text-text-secondary dark:text-gray-400">
+    File (Video / PDF)
+</label>
+
+                <input type="file" 
+                    name="file" 
+                    required
+                    accept="video/mp4,application/pdf"
+                    class="w-full text-sm text-text-secondary file:mr-4 file:rounded-full file:border-0 file:bg-gradient-to-b file:from-[#2B7FFF] file:to-[#0065FF] file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:opacity-90">
+                            
                     </div>
                     <div class="mb-3">
                         <label class="mb-1 block text-xs text-text-secondary dark:text-gray-400">Urutan</label>
