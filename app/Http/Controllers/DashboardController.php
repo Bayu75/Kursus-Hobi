@@ -13,7 +13,11 @@ class DashboardController extends Controller
         $user = Auth::user();
         $tab = $request->query('tab', 'active');
 
-        $enrollments = Enrollment::with(['course.category', 'course.instructor', 'payment'])
+        $enrollments = Enrollment::with([
+                'course',
+                'payment',
+                'certificate'
+            ])
             ->where('user_id', $user->id)
             ->when($tab === 'active', fn ($q) => $q->where('status', 'active'))
             ->when($tab === 'pending', fn ($q) => $q->where('status', 'pending'))
@@ -31,6 +35,6 @@ class DashboardController extends Controller
                 ->count(),
         ];
 
-        return view('dashboard.index', compact('enrollments', 'stats', 'tab'));
+        return view('dashboard.index', compact('enrollments', 'stats', 'tab', ));
     }
 }

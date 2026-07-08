@@ -107,6 +107,13 @@
                                             data-course-title="{{ $enrollment->course->title }}">
                                             Beri Ulasan
                                         </button>
+                                        @if ($enrollment->status == 'completed' && $enrollment->certificate)
+
+                                        <a href="{{ route('certificates.show', $enrollment->certificate) }}"
+                                        class="mt-3 inline-flex rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-5 py-2 text-white">
+                                            Download Sertifikat
+                                        </a>
+                                        @endif
                                     @else
                                         <span class="mt-2 block text-xs text-text-muted dark:text-gray-500">Sudah diulas</span>
                                     @endif
