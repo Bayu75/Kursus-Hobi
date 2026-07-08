@@ -60,10 +60,38 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="mb-1 block text-sm font-medium text-text-primary dark:text-gray-200">Thumbnail</label>
-                    <input type="file" name="thumbnail" accept="image/jpeg,image/png,image/webp"
-                        class="w-full text-sm text-text-secondary file:mr-4 file:rounded-full file:border-0 file:bg-gradient-to-b file:from-[#2B7FFF] file:to-[#0065FF] file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:opacity-90">
-                </div>
+    <label class="mb-1 block text-sm font-medium text-text-primary dark:text-gray-200">
+        Thumbnail Kursus
+    </label>
+
+    {{-- Preview Thumbnail Lama --}}
+    @if ($course->thumbnail)
+        <div class="mb-4">
+            <p class="mb-2 text-xs text-text-secondary dark:text-gray-400">
+                Cover saat ini:
+            </p>
+
+            <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                alt="{{ $course->title }}"
+                class="h-40 w-full rounded-xl object-cover border border-border dark:border-gray-600">
+        </div>
+    @endif
+
+
+    {{-- Upload Thumbnail Baru --}}
+    <input type="file" 
+        name="thumbnail" 
+        accept="image/jpeg,image/png,image/webp"
+        class="w-full text-sm text-text-secondary file:mr-4 file:rounded-full file:border-0 file:bg-gradient-to-b file:from-[#2B7FFF] file:to-[#0065FF] file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:opacity-90">
+
+    <p class="mt-2 text-xs text-text-muted dark:text-gray-500">
+        Kosongkan jika tidak ingin mengganti cover.
+    </p>
+
+    @error('thumbnail')
+        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
+    @enderror
+</div>
 
                 <button type="submit" class="w-full rounded-full bg-gradient-to-b from-[#2B7FFF] to-[#0065FF] px-6 py-3 text-sm font-medium text-white transition-all duration-150 hover:opacity-90">
                     Update Kursus
